@@ -1,8 +1,5 @@
 import React, { useRef } from 'react'
-import ReactDOM from 'react-dom'
-import Option from './option'
-import { useEffect } from 'react';
-import { useState } from 'react';
+
 
 function AddQuiz() {
     const optionRef = useRef();
@@ -21,18 +18,34 @@ function AddQuiz() {
         option.placeholder = "Edit Question..."
         option.id = optionClasses[1];
         option.className = "inputOption"
+        // delete button 
+        let deleteButton = document.createElement("img");
+        deleteButton.className = "delete"
+        deleteButton.src = "./delete.png"
+        deleteButton.name= `op${optionNum}`
+        deleteButton.addEventListener("click",(element)=>deleteOption(element)); 
         // option div
         let optionDiv = document.createElement("div");
         optionDiv.classList.add(...optionClasses);
         optionDiv.appendChild(optionCheckBox);
         optionDiv.appendChild(option);
+        optionDiv.appendChild(deleteButton);
         optionRef.current.appendChild(optionDiv);
         optionNum++;
+        
     }
 
     // delete option
-    let deleteOption = () => {
-        
+    let deleteOption = (element) => {
+        console.log(element.target.name);
+        let deleteItemWithClass = element.target.name;
+        if (document.getElementsByClassName("option").length > 2) {
+            console.log(element.target);
+            document.getElementsByClassName(deleteItemWithClass)[0].remove();
+        }
+        else {
+            console.log("Minimum Options are needed");
+        }
     }
 
     // clear input
@@ -60,9 +73,6 @@ function AddQuiz() {
         if (document.getElementsByClassName('inputQuestion')[0].value.trim() !== "" && optionList.length > 1 && correctOption !== null) {
             let data = { "question": document.getElementsByClassName('inputQuestion')[0].value.trim(), "options": optionList, "answer": correctOption };
             let questionList = JSON.parse(localStorage.getItem("questionList")) || [];
-            // if (localStorage.getItem("questionList")) {
-            //     questionList.push(JSON.parse(localStorage.getItem("questionList")));
-            // }
             questionList.push(data);
             localStorage.setItem("questionList", JSON.stringify(questionList));
             console.log(JSON.parse(localStorage.getItem("questionList")));
@@ -89,10 +99,12 @@ function AddQuiz() {
                     <div className="option op0">
                         <input type="radio" id="op0" name="correctOption"/>
                         <input className="inputOption" placeholder="Edit Question..." />
+                        <img className="delete" src="./delete.png"  name="op0" onClick={(element)=>deleteOption(element)}/>
                     </div>
                     <div className="option op1">
                         <input type="radio" id="op1" name="correctOption"/>
-                        <input className="inputOption" placeholder="Edit Question..."/>
+                        <input className="inputOption" placeholder="Edit Question..." />
+                        <img className="delete" src="./delete.png" name="op1" onClick={(element)=>deleteOption(element)}/>
                     </div>
                 </div>
                 <button onClick={addOption}>Add Options</button>
@@ -103,5 +115,3 @@ function AddQuiz() {
 }
 
 export default AddQuiz;
-
-

@@ -37,7 +37,10 @@
   }
 }
 
-
+.delete{
+  width: 16px;
+  height: 16px;
+}
 /* .wrappableInput{
   overflow-wrap: break-word;
 } */
