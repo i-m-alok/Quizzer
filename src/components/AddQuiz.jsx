@@ -1,12 +1,16 @@
 import React, { useRef } from 'react'
+import { useState } from 'react';
 import {useHistory} from 'react-router-dom'
 import firebase from "./FirebaseSDK"
+import toastr from "toastr"
 
 function AddQuiz() {
     const optionRef = useRef();
     let optionNum = 2
     let firebaseRef = firebase.database().ref().child("Quizes");
     let history = useHistory();
+    let [totalQuestions, setTotalQusetion] = useState(localStorage.getItem("questionList")? JSON.parse(localStorage.getItem("questionList")).length : 0)
+    
     // add option
     let addOption = () => {
         // option Checkbox
@@ -46,6 +50,7 @@ function AddQuiz() {
             document.getElementsByClassName(deleteItemWithClass)[0].remove();
         }
         else {
+            toastr.warning("Minimum 2 Options are needed");
             console.log("Minimum 2 Options are needed");
         }
     }
@@ -90,6 +95,7 @@ function AddQuiz() {
             localStorage.setItem("questionList", JSON.stringify(questionList));
             // firebaseRef.push(questionList);
             console.log(JSON.parse(localStorage.getItem("questionList")));
+            setTotalQusetion(JSON.parse(localStorage.getItem("questionList")).length);
             clearInput();
         }
         else if (document.getElementsByClassName('inputQuestion')[0].value.trim() === "") {
@@ -101,13 +107,19 @@ function AddQuiz() {
         else {
             console.log("please provide the correct option");
         }
+        
     }
 
     // create Quiz
     let createQuiz = () => {
         let questionList = JSON.parse(localStorage.getItem("questionList"));
+        if (questionList.length) {
+            // firebaseRef.push(questionList).then(snap => history.push("Quiz/"+snap.key))
+            history.push("Quiz/");
+            localStorage.clear();
+        }
         // firebaseRef.push(questionList);
-        localStorage.clear();
+        // localStorage.clear();
     }
 
     return (
@@ -129,7 +141,7 @@ function AddQuiz() {
                 </div>
                 <button onClick={addOption}>Add Options</button>
                 <button onClick={nextQuestion}>Next Question</button>
-                <button onClick={createQuiz}>Create Quiz</button>
+                {totalQuestions>0?<button onClick={createQuiz}>Create Quiz</button>:null}
             </div>
         </center>
     )
