@@ -1,10 +1,12 @@
 import React, { useRef } from 'react'
-
+import {useHistory} from 'react-router-dom'
+import firebase from "./FirebaseSDK"
 
 function AddQuiz() {
     const optionRef = useRef();
     let optionNum = 2
-
+    let firebaseRef = firebase.database().ref().child("Quizes");
+    let history = useHistory();
     // add option
     let addOption = () => {
         // option Checkbox
@@ -44,7 +46,7 @@ function AddQuiz() {
             document.getElementsByClassName(deleteItemWithClass)[0].remove();
         }
         else {
-            console.log("Minimum Options are needed");
+            console.log("Minimum 2 Options are needed");
         }
     }
 
@@ -52,6 +54,10 @@ function AddQuiz() {
     let clearInput = () => {
         for (let i of document.getElementsByTagName("input")) {
             i.value="";
+        }
+        let options = document.getElementsByClassName("option");
+        while (document.getElementsByClassName("option").length > 2) {
+            document.getElementsByClassName("option")[options.length -1].remove()
         }
     }
 
@@ -70,11 +76,19 @@ function AddQuiz() {
                 correctOption = parseInt(id.slice(2,));
             }
         }
-        if (document.getElementsByClassName('inputQuestion')[0].value.trim() !== "" && optionList.length > 1 && correctOption !== null) {
-            let data = { "question": document.getElementsByClassName('inputQuestion')[0].value.trim(), "options": optionList, "answer": correctOption };
+        let isQuestionPresent = document.getElementsByClassName('inputQuestion')[0].value.trim() !== "";
+        let haveOptions = optionList.length > 1;
+        let isCorrectProvided = correctOption !== null
+        if (isQuestionPresent && haveOptions && isCorrectProvided) {
+            let data = {
+                "question": document.getElementsByClassName('inputQuestion')[0].value.trim(),
+                "options": optionList,
+                "answer": correctOption
+            };
             let questionList = JSON.parse(localStorage.getItem("questionList")) || [];
             questionList.push(data);
             localStorage.setItem("questionList", JSON.stringify(questionList));
+            // firebaseRef.push(questionList);
             console.log(JSON.parse(localStorage.getItem("questionList")));
             clearInput();
         }
@@ -89,6 +103,12 @@ function AddQuiz() {
         }
     }
 
+    // create Quiz
+    let createQuiz = () => {
+        let questionList = JSON.parse(localStorage.getItem("questionList"));
+        // firebaseRef.push(questionList);
+        localStorage.clear();
+    }
 
     return (
         <center>
@@ -109,9 +129,10 @@ function AddQuiz() {
                 </div>
                 <button onClick={addOption}>Add Options</button>
                 <button onClick={nextQuestion}>Next Question</button>
+                <button onClick={createQuiz}>Create Quiz</button>
             </div>
         </center>
     )
 }
 
-export default AddQuiz;
+export default AddQuiz; 
