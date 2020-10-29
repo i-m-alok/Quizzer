@@ -44,3 +44,17 @@
 /* .wrappableInput{
   overflow-wrap: break-word;
 } */
+
+
+/* Play page */
+.choice-container{
+  border: 2px solid #61dafb;
+}
+
+.success {
+    background-color: darkorange;
+}
+
+.failure {
+    background-color: red;
+}
