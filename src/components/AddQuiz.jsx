@@ -21,8 +21,9 @@ function AddQuiz() {
         // option input
         let option = document.createElement("input");
         const optionClasses = ["option", `op${optionNum}`];
-        option.placeholder = "Edit Question..."
-        option.id = optionClasses[1];
+        option.setAttribute('type', 'text');
+        option.placeholder = "Edit Option..."
+        // option.id = optionClasses[1];
         option.className = "inputOption"
         // delete button 
         let deleteButton = document.createElement("img");
@@ -123,26 +124,29 @@ function AddQuiz() {
     }
 
     return (
-        <center>
-            <h1>Quizzer</h1>
-            <div>
-                <input className="inputQuestion" placeholder="Type Question..." />
+        <center>            
+            <div className="container">
+                <h1>Quizzer</h1>
+                <input type="text" className="inputQuestion" placeholder="Type Question..." />
                 <div className="options" ref={optionRef}>
                     <div className="option op0">
                         <input type="radio" id="op0" name="correctOption"/>
-                        <input className="inputOption" placeholder="Edit Question..." />
+                        <input type="text" className="inputOption" placeholder="Edit Option..." />
                         <img className="delete" src="./delete.png"  name="op0" onClick={(element)=>deleteOption(element)}/>
                     </div>
                     <div className="option op1">
                         <input type="radio" id="op1" name="correctOption"/>
-                        <input className="inputOption" placeholder="Edit Question..." />
+                        <input type="text" className="inputOption" placeholder="Edit Option..." />
                         <img className="delete" src="./delete.png" name="op1" onClick={(element)=>deleteOption(element)}/>
                     </div>
                 </div>
-                <button onClick={addOption}>Add Options</button>
-                <button onClick={nextQuestion}>Next Question</button>
-                {totalQuestions>0?<button onClick={createQuiz}>Create Quiz</button>:null}
-            </div>
+                <div className="buttonSet">
+                    <button className="functionalBtn" onClick={addOption}>Add Options</button>
+                    <button className="functionalBtn" onClick={nextQuestion}>Next Question</button>
+                    {totalQuestions>0?<button className="functionalBtn" onClick={createQuiz}>Create Quiz</button>:null}
+                </div>
+                
+            </div> 
         </center>
     )
 }

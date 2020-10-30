@@ -6,7 +6,7 @@ import './App.css';
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Switch>
         <Route path="/createQuiz"><AddQuiz /></Route>
         <Route path="/Quiz/:id" exact component={ShareQuiz} />

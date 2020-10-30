@@ -14,9 +14,6 @@ function Question(props) {
 
    
     let checkAnswer = (index) => {
-        let div = document.getElementById(`choice${index}`)
-        // console.log(`${currentQuestion.answer} ${index}  ${correctlyAnswered} ${questionCounter}`)
-
         if (typeof currentQuestion !== undefined && availableQuestions.length >= 1) {
             if (index === currentQuestion.answer) {
                 correctlyAnswered.current++;
@@ -43,7 +40,6 @@ function Question(props) {
                     {currentQuestion.options ? currentQuestion.options.map((option, index) => (
                         <div id={`choice${index}`} className="choice-container"  key={index} onClick={()=> checkAnswer(index)}>
                             <p className="choice-text" data-number={index}>{option}</p>
-                            {console.log(result)}
                         </div>)
                     ): null}
                     </div>

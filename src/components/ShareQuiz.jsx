@@ -35,8 +35,8 @@ function ShareQuiz(props) {
         <div>
             <div className="container">
                 <center>
-                    <Question questions={questionList}/>
-                    <div>Thanks for Creating Quiz :) {quizId}</div>
+                    {/* <div>Thanks for Creating Quiz :) {quizId}</div> */}
+                    <Question questions={questionList} />
                         <div>
                             <div className="submitBtn">
                                 {/* <img src={CopyBtn} onClick={copyLink} />
