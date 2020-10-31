@@ -44,10 +44,11 @@ function AddQuiz() {
 
     // delete option
     let deleteOption = (element) => {
-        console.log(element.target.name);
+        // console.log(element.target.name);
         let deleteItemWithClass = element.target.name;
         if (document.getElementsByClassName("option").length > 2) {
             // console.log(element.target);
+            optionNum--;
             document.getElementsByClassName(deleteItemWithClass)[0].remove();
         }
         else {
@@ -135,12 +136,12 @@ function AddQuiz() {
                     <div className="option op0">
                         <input type="radio" id="op0" name="correctOption"/>
                         <input type="text" className="inputOption" placeholder="Edit Option..." />
-                        <img className="delete" src="./delete.png"  name="op0" onClick={(element)=>deleteOption(element)}/>
+                        <div className="empty"></div>
                     </div>
                     <div className="option op1">
                         <input type="radio" id="op1" name="correctOption"/>
                         <input type="text" className="inputOption" placeholder="Edit Option..." />
-                        <img className="delete" src="./delete.png" name="op1" onClick={(element)=>deleteOption(element)}/>
+                        <div className="empty"></div>
                     </div>
                 </div>
                 <div className="buttonSet">

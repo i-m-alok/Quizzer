@@ -5,7 +5,7 @@
   padding: 1rem;
 }
 
-.delete{
+.empty, .delete{
   width: 1.4rem;
   height: 1.4rem;
 }
