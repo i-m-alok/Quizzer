@@ -11,37 +11,50 @@ function Question(props) {
     let questionCounter = useRef(0);
     let correctlyAnswered = useRef(0);
     let [result, setResult] = useState(-1);
-
    
-    let checkAnswer = (index) => {
+    let checkAnswer = (index, choice) => {
+        let selectedChoice = document.getElementById(choice);
         if (typeof currentQuestion !== undefined && availableQuestions.length >= 1) {
+            let classToAdd;
             if (index === currentQuestion.answer) {
                 correctlyAnswered.current++;
-            }
-            questionCounter.current++;
-            if (availableQuestions.length > 1) {
-                setAvailableQuestions(availableQuestions.splice(1,));
+                classToAdd = "success";
+                console.log(selectedChoice.lastChild.classList)
             }
             else {
-                setResult(correctlyAnswered.current);
-                console.log(result);
+                classToAdd = "failure"
             }
+            selectedChoice.firstChild.classList.remove("playOption");
+            selectedChoice.firstChild.classList.add(classToAdd);
+            setTimeout(() => {
+                selectedChoice.firstChild.classList.remove(classToAdd);
+                selectedChoice.firstChild.classList.add("playOption");
+                questionCounter.current++;
+                if (availableQuestions.length > 1) {
+                    setAvailableQuestions(availableQuestions.splice(1,));
+                }
+                else {
+                    setResult(correctlyAnswered.current);
+                    console.log(result);
+                }
+            }, 1000);
         }
    }
     return (
-        <div className="container">
+        <div >
             {
-                result !== -1 ? <p>{`You scored ${correctlyAnswered.current} out of ${maxQuestions}`}</p> :
+                result !== -1 ? <h1>{`You scored ${correctlyAnswered.current} out of ${maxQuestions}`}</h1> :
             <>
-                <div id="head-up"><p id='counter'>{questionCounter.current + 1}</p> / <p id="max-ques">{maxQuestions}</p></div>
-                <div id="progress-bar"><div id="progress"></div></div>
-                <div id="play" className="justify-center flex-column">
-                    <h3 id="question">{currentQuestion.question}</h3>
-                    {currentQuestion.options ? currentQuestion.options.map((option, index) => (
-                        <div id={`choice${index}`} className="choice-container"  key={index} onClick={()=> checkAnswer(index)}>
-                            <p className="choice-text" data-number={index}>{option}</p>
-                        </div>)
-                    ): null}
+                <div className="head-up"><p id='counter'>{questionCounter.current + 1}</p><p id="max-ques">{maxQuestions}</p></div>
+                <h3 id="question">{currentQuestion.question}</h3>
+                <div id="play">
+                        <div className="options">
+                            {currentQuestion.options ? currentQuestion.options.map((option, index) => (
+                                <div id={`choice${index}`} className="option"  key={index} onClick={()=> checkAnswer(index, `choice${index}`)}>
+                                <p className="choice-text playOption" data-number={index}>{option}</p>
+                            </div>)
+                        ): null}
+                        </div>
                     </div>
             </>
             }

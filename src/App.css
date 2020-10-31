@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1rem;
 }
 
 .delete{
@@ -23,6 +24,7 @@ input{
   margin-top: 20%;
   background: #ecf0f3;
   /* border: 2px solid red; */
+  width: calc(100% - 40px);
   padding: 20px;
   border-radius: 40px;
   background: #ecf0f3;
@@ -34,13 +36,24 @@ input{
 .choice-container{
   border: 2px solid #61dafb;
 }
-
+.success, .failure{
+  padding: 1rem;
+  border-radius: 40px;
+  font-size: 1rem;
+  width: 70%;
+  word-wrap: break-word;
+}
 .success {
-    background-color: darkorange;
+  background: #1cf284;
+  box-shadow: inset 8px 8px 8px #15b362, 
+            inset -8px -8px 8px #23ffa6;
 }
 
+
 .failure {
-    background-color: red;
+  background: #e62828;
+  box-shadow:  inset 8px 8px 8px #aa1e1e, 
+             inset -8px -8px 8px #ff3232;
 }
 .options{
   display: flex;
@@ -54,10 +67,11 @@ input{
   padding: 1.5rem;
   justify-content: space-around;
   align-items: center;
+  word-wrap: normal;
 }
 
 /* Correct part  */
-input[type=text]{
+input[type=text], .playOption{
   border: none;
   outline:none;
   background: none;
@@ -73,22 +87,27 @@ input[type=radio]{
 }
 
 .inputQuestion{
+  word-wrap: break-word;
   font-size: 1.5rem;
   width: 100%;
   margin-bottom: 30px;
 }
-.inputOption{
+.inputOption, .playOption{
+  word-wrap: break-word;
   font-size: 1rem;
   width: 70%;
   /* margin-bottom: 15px; */
 }
-
+.playOption{
+  padding: 1rem;
+}
 .buttonSet{
   display: flex;
   justify-content: space-around;
 }
 .functionalBtn{
   /* background:url("Logo.png"); */
+  outline: none;
   width:4rem;
   height: 4rem;
   border-radius: 50%;
@@ -109,9 +128,35 @@ input[type=radio]{
   background: #fff;
 }
 
-@media (max-width:480px){
-  .container{
-    margin-left: 20px;
-    margin-right: 20px;
-  }
+.questionBox{
+  min-width: 20rem;
+  max-width: 60%;
+}
+
+#question{
+  word-wrap: break-word;
+}
+/* Questions asked */
+.head-up{
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 4rem;
+  height: 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  border-radius: 1.4rem;
+  box-shadow: 8px 8px 12px #cbced1,
+              -8px -8px 12px #ffffff;
+}
+#counter{
+  width: 2rem;
+  padding: 0.1rem 0;
+
+}
+#max-ques{
+  width: 2rem;
+  padding: 0.1rem 0;
+  background: #61dafb;
 }

@@ -1,27 +1,19 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import {useHistory, Link} from "react-router-dom"
+import { Link} from "react-router-dom"
 import firebase from './FirebaseSDK'
 import Question from './Question';
 
 function ShareQuiz(props) {
-    // let quizId = props.match.params.id;
-    let quizId = "-MKhm_8CmGIpHwib3yU4";
-    // const firebaseRef = firebase.database().ref("Quizes/");
-    // const [questionList, setquestionList] = useState([])
-    const questionList = [{ answer: 1, options: ["bjkbiub", "kjknnjb"], question: "vvhvhjh" },
-        { answer: 1, options: ["1755", "254"], question: "yfgjvghkv" },
-        { answer: 1, options: ["hhjhhjj", "mkknknkmm"], question: "ghhvvhvvvvh" },
-        { answer: 1, options: ["hjhjgh", "jhjhjgj"], question: "jhgjhgj" },
-        {answer: 0, options: ["dsadsdsad", "dsaddsadsad", "hello"], question: "ddadasdsa"}
-    ] 
-    console.log(quizId);
-
-    // useEffect(() => {
-    //     firebaseRef.child(quizId).once("value").then(snap => setquestionList(snap.val()));
-    //     }
-    //     , [])
+    let quizId = props.match.params.id;
+    const firebaseRef = firebase.database().ref("Quizes/");
+    const [questionList, setquestionList] = useState([])
+    useEffect(() => {
+        firebaseRef.child(quizId).once("value").then(snap => setquestionList(snap.val()));
+        }
+        , [])
+    
     function copyLink(){
         let copyInput = document.createElement("input");
         copyInput.value = "http://localhost:3000/Quiz/" + quizId;
@@ -32,28 +24,31 @@ function ShareQuiz(props) {
     }
 
     return (
-        <div>
+        <center>
             <div className="container">
-                <center>
-                    {/* <div>Thanks for Creating Quiz :) {quizId}</div> */}
-                    <Question questions={questionList} />
-                        <div>
-                            <div className="submitBtn">
-                                {/* <img src={CopyBtn} onClick={copyLink} />
-                                <div className="tooltip">Copy Poll Link</div> */}
-                                <button onClick={copyLink}>Copy link</button>
-                            </div>
-                            <Link to="/createQuiz">
-                                <div className="addPollBtn">
-                                    {/* <img src={AddPollBtn} />
-                                    <div className="tooltip">Create New Poll</div> */}
-                                    <button>Create New Quiz</button>
-                                </div>
-                            </Link>
+                {/* <div>Thanks for Creating Quiz :) {quizId}</div> */}
+                <div className="questionBox">
+                    {questionList.length > 0 ? <Question questions={questionList} /> : null }
+                    
+                    <div className="buttonSet">
+                        <div className="submitBtn">
+                            {/* <img src={CopyBtn} onClick={copyLink} />
+                            <div className="tooltip">Copy Poll Link</div> */}
+                            <button className="functionalBtn" onClick={copyLink}>Copy link</button>
                         </div>
-                </center>
+                        <Link to="/createQuiz">
+                            <div className="addPollBtn">
+                                {/* <img src={AddPollBtn} />
+                                <div className="tooltip">Create New Poll</div> */}
+                                <button className="functionalBtn">Create New Quiz</button>
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+                
             </div>
-        </div>
+        </center>
+        
     )
 }
 

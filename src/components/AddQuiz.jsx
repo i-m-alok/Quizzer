@@ -47,7 +47,7 @@ function AddQuiz() {
         console.log(element.target.name);
         let deleteItemWithClass = element.target.name;
         if (document.getElementsByClassName("option").length > 2) {
-            console.log(element.target);
+            // console.log(element.target);
             document.getElementsByClassName(deleteItemWithClass)[0].remove();
         }
         else {
@@ -113,11 +113,14 @@ function AddQuiz() {
 
     // create Quiz
     let createQuiz = () => {
+        nextQuestion();
         let questionList = JSON.parse(localStorage.getItem("questionList"));
         if (questionList.length) {
-            // firebaseRef.push(questionList).then(snap => history.push("Quiz/"+snap.key))
-            history.push("Quiz/");
-            localStorage.clear();
+            firebaseRef.push(questionList).then(snap => {
+                localStorage.clear();
+                history.push("Quiz/" + snap.key);
+            })
+            // localStorage.clear();
         }
         // firebaseRef.push(questionList);
         // localStorage.clear();
