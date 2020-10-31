@@ -121,7 +121,9 @@ function AddQuiz() {
         nextQuestion();
         let questionList = JSON.parse(localStorage.getItem("questionList"));
         if (questionList.length) {
+            toastr.options = { "timeOut": "1000" };
             firebaseRef.push(questionList).then(snap => {
+                setTimeout(toastr.success("🤩 Successfully Created Quiz"), 1000);
                 localStorage.clear();
                 history.push("Quiz/" + snap.key);
             })

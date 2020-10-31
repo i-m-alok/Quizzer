@@ -1,7 +1,10 @@
 import React from 'react'
 import { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-
+function score(correct, total) {
+    let result = (correct / total) * 100;
+    return result > 30 ? ( result> 80? "😎": "😅" ): "☹️"; 
+}
 function Question(props) {
     let history = useHistory()
     const { questions } = props;
@@ -41,7 +44,7 @@ function Question(props) {
     return (
         <div >
             {
-                result !== -1 ? <h1>{`You scored ${correctlyAnswered.current} out of ${maxQuestions}`}</h1> :
+                result !== -1 ? <h1>{`${score(correctlyAnswered.current, maxQuestions )} You scored ${correctlyAnswered.current} out of ${maxQuestions}`}</h1> :
             <>
                 <div className="head-up"><p id='counter'>{questionCounter.current + 1}</p><p id="max-ques">{maxQuestions}</p></div>
                 <h3 id="question">{currentQuestion.question}</h3>
