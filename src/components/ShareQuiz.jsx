@@ -26,20 +26,15 @@ function ShareQuiz(props) {
     return (
         <center>
             <div className="container">
-                {/* <div>Thanks for Creating Quiz :) {quizId}</div> */}
                 <div className="questionBox">
                     {questionList.length > 0 ? <Question questions={questionList} /> : null }
                     
                     <div className="buttonSet">
                         <div className="submitBtn">
-                            {/* <img src={CopyBtn} onClick={copyLink} />
-                            <div className="tooltip">Copy Poll Link</div> */}
                             <button className="functionalBtn" onClick={copyLink}>Copy link</button>
                         </div>
                         <Link to="/createQuiz">
                             <div className="addPollBtn">
-                                {/* <img src={AddPollBtn} />
-                                <div className="tooltip">Create New Poll</div> */}
                                 <button className="functionalBtn">Create New Quiz</button>
                             </div>
                         </Link>

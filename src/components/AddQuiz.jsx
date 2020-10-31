@@ -101,13 +101,17 @@ function AddQuiz() {
             clearInput();
         }
         else if (document.getElementsByClassName('inputQuestion')[0].value.trim() === "") {
-            console.log("Question string cannt be null");
+            toastr.options = { "timeOut": "1000" };
+            toastr.warning("Question string cannt be null");
+            
         }
         else if (optionList.length < 2) {
-            console.log("Minimum Options are needed");
+            toastr.options = { "timeOut": "1000" };
+            toastr.warning("Minimum 2 Options are needed");
         }
         else {
-            console.log("please provide the correct option");
+            toastr.options = { "timeOut": "1000" };
+            toastr.warning("Please select the correct option");
         }
         
     }

@@ -19,7 +19,6 @@ function Question(props) {
             if (index === currentQuestion.answer) {
                 correctlyAnswered.current++;
                 classToAdd = "success";
-                console.log(selectedChoice.lastChild.classList)
             }
             else {
                 classToAdd = "failure"
@@ -35,7 +34,6 @@ function Question(props) {
                 }
                 else {
                     setResult(correctlyAnswered.current);
-                    console.log(result);
                 }
             }, 1000);
         }
