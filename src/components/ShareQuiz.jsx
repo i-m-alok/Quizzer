@@ -27,7 +27,7 @@ function ShareQuiz(props) {
         <center>
             <div className="container">
                 <div className="questionBox">
-                    {questionList.length > 0 ? <Question questions={questionList} /> : null }
+                    {questionList.length > 0 ? <Question questions={questionList} /> : <p>Loading...</p> }
                     
                     <div className="buttonSet">
                         <div className="submitBtn">
