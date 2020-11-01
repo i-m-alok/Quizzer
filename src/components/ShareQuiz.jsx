@@ -18,7 +18,7 @@ function ShareQuiz(props) {
     , [])
     function copyLink(e){
         const copyInput = document.createElement("input");
-        copyInput.value = "https://quizcreator.netlify.app/Quiz/" + quizId;
+        copyInput.value = "https://quizcreator.vercel.app/Quiz/" + quizId;
         document.body.parentNode.appendChild(copyInput);
         copyInput.select();
         document.execCommand("copy")
