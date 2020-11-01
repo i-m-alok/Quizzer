@@ -14,8 +14,8 @@ function ShareQuiz(props) {
         }
         , [])
     
-    function copyLink(){
-        let copyInput = document.createElement("input");
+    function copyLink(e){
+        const copyInput = document.createElement("input");
         copyInput.value = "https://quizcreator.netlify.app/Quiz/" + quizId;
         document.body.parentNode.appendChild(copyInput);
         copyInput.select();
