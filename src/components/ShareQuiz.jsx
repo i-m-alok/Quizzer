@@ -10,10 +10,12 @@ function ShareQuiz(props) {
     const firebaseRef = firebase.database().ref("Quizes/");
     const [questionList, setquestionList] = useState([])
     useEffect(() => {
-        firebaseRef.child(quizId).once("value").then(snap => setquestionList(snap.val()));
+        async function fetchData() {
+            await firebaseRef.child(quizId).once("value").then(snap => setquestionList(snap.val()));
         }
-        , [])
-    
+        fetchData()
+        }
+    , [])
     function copyLink(e){
         const copyInput = document.createElement("input");
         copyInput.value = "https://quizcreator.netlify.app/Quiz/" + quizId;
@@ -27,7 +29,7 @@ function ShareQuiz(props) {
         <center>
             <div className="container">
                 <div className="questionBox">
-                    {questionList.length > 0 ? <Question questions={questionList} /> : <p>Loading...</p> }
+                    {questionList.length > 0 ? <Question questions={questionList} /> : <p>Loading...</p>}
                     
                     <div className="buttonSet">
                         <div className="submitBtn">
